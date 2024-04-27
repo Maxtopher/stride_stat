@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Scoring
+{% endblock %}
+
+{% block main %}
+<!-- Link Button to change score parameters -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <a href="/change_scores" class="btn btn-primary btn-lg btn-block" role="button"> Change Scoring Values</a>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<br>
+
+<!-- Search bar to search table -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <input class="form-control" id="team_search" type="text" placeholder="Search...">
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<!-- Table to display all scoring categories -->
+<table class="table table-sm table-striped table-hover container">
+    <thead>
+        <tr>
+            <td>Stat Name</td>
+            <td>Description</td>
+            <td>Default Value</td>
+            <td>Your Value</td>
+        </tr>
+    </thead>
+    <tbody id="team_table">
+        {% for stat in stats %}
+            <tr>
+                <!-- Display name of the statistic -->
+                <td><h6>{{ stat.displayName }}</h6> ({{ stat.abbrev }})</td>
+                <!-- Give statisitic description -->
+                <td>{{ stat.description }}</td>
+                <!-- Show the default value of the statistic in fantasy points -->
+                <td>{{ stat.defaultValue }}</td>
+                <!-- Disply your chosen value for the statistic -->
+                <td>{{ user_stats[stat.name] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Button to restore to default parameters-->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3>Type "Restore" to Reset Default Values</h3>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <form action="/scoring" method="post">
+            <input name="restore" class="form-control mx-auto w-auto" type="text"></input>
+            <br>
+            <button class="btn btn-danger" type="submit">Restore Default Values</button>
+        </form>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+<!-- Script to help search table -->
+<script>
+    // to searc the table
+    $(document).ready(function(){
+      $("#team_search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#team_table tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Play Page
+{% endblock %}
+
+{% block main %}
+<!-- Displays player headshot -->
+<div>
+    <img  class="img-responsive img_fit" height="300px" alt="{{ player.headshot }} headshot" src="{{ player.headshot }}">
+</div>
+<div>
+    <h1>{{ player.name }}</h1>
+</div>
+<div>
+    <h3>{{ player.position }}</h3>
+</div>
+
+<!-- Allow player to be favortied -->
+<div class="row">
+    <div class="col-md-12">
+        <form action="/player_page" method="post">
+            <!-- Submit button -->
+            <div class="mb-3">
+                {% if player.id in favorites %}
+                    <input type="hidden" name="player_id" value="{{ player.id }}">
+                    <button class="btn btn-danger" type="submit">Unfavorite</button>
+                {% else %}
+                    <input type="hidden" name="player_id" value="{{ player.id }}">
+                    <button class="btn btn-primary" type="submit">Favorite</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Table to display all player info for season -->
+<table class="table table-striped table-hover table-sm container">
+    <thead>
+        <tr>
+            <td> Week </td>
+            {% for stat in season_stats %}
+                <td>{{ stat }}</td>
+            {% endfor %}
+            <td> Fantasy Score </td>
+        </tr>
+    </thead>
+    <tbody id="team_table">
+        {% for week in total_stats %}
+            <tr>
+                {% for stat in week %}
+                    <td>{{ week[stat] }}</td>
+                {% endfor %}
+                <td>{{ weekly_scores[week['week']] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <tfooter>
+        <td> TOTAL </td>
+        {% for stat in season_stats %}
+            <td>{{ season_stats[stat] }}</td>
+        {% endfor %}
+        <td> {{ season_score }} </td>
+    </tfooter>
+</table>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Change Scores
+{% endblock %}
+
+{% block main %}
+<form action="/change_scores" method="post">
+    <div class="row">
+        <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <table class="table table-sm table-striped table-hover container">
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for stat in stats %}
+                            <tr>
+                                <td><h3>{{stat.displayName}}</h3></td>
+                                <td><input name={{stat.name}} placeholder="{{stat.defaultValue}}" autofocus class="form-control mx-auto w-auto" type="number"></input></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        <div class="col-md-3"></div>
+    </div>
+
+
+
+
+
+
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+{% endblock %}

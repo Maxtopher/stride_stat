@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <!-- https://memegen.link/ -->
+    <!-- changed the apology function from CS50 finance pset to display photo of ref throwing flag as a penalty -->
+    <img alt="{{ top }}" class="border img-fluid" src="http://memegen.link/custom/{{ top | urlencode }}/{{ bottom | urlencode }}.jpg?alt=https://s.wsj.net/public/resources/images/BN-RS195_randd__M_20170119172918.jpg" title="{{ top }}">
+{% endblock %}

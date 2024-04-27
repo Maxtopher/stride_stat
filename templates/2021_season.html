@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    2021 Season
+{% endblock %}
+
+{% block main %}
+<!-- Selector Bar to Choose which week -->
+<form action="/2021_season" method="post">
+    <div class="mb-3">
+        <select autofocus class="form-select mx-auto w-auto" name="week_select">
+            <option disabled selected>Week</option>
+            {% for i in range(1,19) %}
+                <option value="{{ i }}"> Week {{ i }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Go!</button>
+    </div>
+</form>
+
+
+<!-- Table Header -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3>NFL 2021 Week {{week}} Scores</h3>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+<!-- Search bar to search table -->
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <input class="form-control" id="game_search" type="text" placeholder="Search...">
+    </div>
+    <div class="col-md-3"></div>
+</div>
+
+
+<!-- Table to display all team data -->
+<table class="table table-striped table-hover container">
+    <thead>
+        <tr>
+            <td></td>
+            <td>Matchup</td>
+            <td>Score</td>
+            <td>Winner</td>
+            <td>Records</td>
+        </tr>
+    </thead>
+    <tbody id="game_table">
+        {% for game in games %}
+            <tr>
+                <!-- Display the Logos of the Matchup -->
+                <td>
+                    <h3>
+                        {% for team in teams %}
+                            {% if game.team_id_2 == team.id %}
+                                <img  class="img-responsive img_fit logo_size" alt="{{ team.team }} logo" src="{{ team.logo }}">
+                            {% endif %}
+                        {% endfor %}
+                        @
+                        {% for team in teams %}
+                            {% if game.team_id_1 == team.id %}
+                            <img  class="img-responsive img_fit logo_size" alt="{{ team.team }} logo" src="{{ team.logo }}">
+                            {% endif %}
+                        {% endfor %}
+                    </h3>
+                </td>
+
+                <!-- Display the 'name' of the game - the textual matchup -->
+                <td><div>{{ game.name }}</div><div>({{ game.abbrev }})</div></td>
+
+                <!-- Display game score -->
+                <td><h3>{{ game.score_2 }} - {{ game.score_1 }}</h3></td>
+
+                <!-- Choose which logo to display as winner - or both if tie -->
+                <!-- if winner_1 == 1 then they were the matchup winner -->
+                {% if game.winner_1 == 1 and game.winner_2 == 0 %}
+                    <td>
+                        {% for team in teams %}
+                            {% if game.team_id_1 == team.id %}
+                                <img  class="img-responsive img_fit logo_size" alt="{{ team.team }} logo" src="{{ team.logo }}">
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% elif game.winner_1 == 0 and game.winner_2 == 1 %}
+                    <td>
+                        {% for team in teams %}
+                            {% if game.team_id_2 == team.id %}
+                                <img  class="img-responsive img_fit logo_size" alt="{{ team.team }} logo" src="{{ team.logo }}">
+                            {% endif %}
+                        {% endfor %}
+                    </td>
+                {% else %}
+                <td>
+                    <h3>
+                        {% for team in teams %}
+                            {% if game.team_id_2 == team.id %}
+                                <img  class="img-responsive img_fit logo_size" alt="{{ team.team }} logo" src="{{ team.logo }}">
+                            {% endif %}
+                        {% endfor %}
+                        /
+                        {% for team in teams %}
+                            {% if game.team_id_1 == team.id %}
+                                <img  class="img-responsive img_fit logo_size" alt="{{ team.team }} logo" src="{{ team.logo }}">
+                            {% endif %}
+                        {% endfor %}
+                    </h3>
+                </td>
+                {% endif %}
+
+                <!-- Display the records for each team -->
+                <td>
+                    <h6>
+                        {% for team in teams %}
+                            {% if game.team_id_2 == team.id %}
+                                {{ team.abbreviation }}: {{ records[team.id] }}
+                            {% endif %}
+                        {% endfor %}
+                    </h6>
+                    <h6>
+                        {% for team in teams %}
+                            {% if game.team_id_1 == team.id %}
+                            {{ team.abbreviation }}: {{ records[team.id] }}
+                            {% endif %}
+                        {% endfor %}
+                    </h6>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<!-- Script to help search table -->
+<!--  -->
+<script>
+    // to search the table
+    $(document).ready(function(){
+      $("#game_search").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#game_table tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+</script>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+<!-- Header -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h1> Welcome To CS50 Fantasy!</h1>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<!-- NFL Logo -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <img  class="img-responsive img_fit" alt="NFL Logo" src="https://a.espncdn.com/combiner/i?img=/i/teamlogos/leagues/500/nfl.png">
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+<!-- Description of Site -->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <h3> This Site is a Fantasy Score Calculator </h3>
+        <h6>
+            The information provided in this site was retrieved using <a href="https://sports.core.api.espn.com/v2/sports/football/leagues/nfl">ESPN's NFL API</a>.
+            It displays information from the 2021 NFL season. Explore the pages above to find the following information
+        </h6>
+            <li>
+                Teams - Provides a list of all the NFL teams
+            </li>
+            <li>
+                2021 Season - Allows you to select any week of the season and view data for each matchup
+            </li>
+            <li>
+                Players - Displays a list of all NFL players who scored fantasy points in the 2021 season
+            </li>
+            <li>
+                Favorites - Contain a list of players that you have selected as your favorites
+            </li>
+            <li>
+                Scoring - Allows you to see the relevant fantasy statistics and alter their values
+            </li>
+        <h6>
+            As you explore this site, you will likely notice that fantasy scores do not precisely align with those on typical fantasy apps.
+            That is becasue we allow players to score points for a larger subset of statistical categories. If you want kickers to score points for touchbacks
+            or punt returns to score points for lots of yards on their returns, you can alter these stat categories! This means that you can search for players that
+            would not typically be fantasy relavent. You can find point values for some defensive players would participate in special teams and even some offensive linemen who scored touchdowns.
+            You wouldn't usually have these guys on your fantasy team! Check out OT Lane Johnson's stats and give him the fantasy praise he deserves. Can you any other OT's who scored touchdowns in 2021?
+        </h6>
+        <h6>
+            Make sure you try changing the fantasy values under the Scoring page to give these atypical fantasy players some point boosts!
+        </h6>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+{% endblock %}

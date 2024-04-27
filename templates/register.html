@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <!-- Register page taken from CS50 finance pset -->
+    <form action="/register" method="post">
+        <div class="mb-3">
+            <input name="username" placeholder="username" autofocus class="form-control mx-auto w-auto" type="text"></input>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" name="password" placeholder="password" autofocus class="form-control mx-auto w-auto" type="text"></input>
+        </div>
+        <div class="mb-3">
+            <input autocomplete="off" name="confirmation" placeholder="confirm password" autofocus class="form-control mx-auto w-auto" type="text"></input>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" type="submit">Register</button>
+        </div>
+    </form>
+{% endblock %}
